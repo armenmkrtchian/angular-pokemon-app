@@ -1,0 +1,42 @@
+
+<section class="details-main--wrapper" *ngIf="details$ | async as details">
+    <section class="pokemon-name">
+        <span>{{details?.name | titlecase }}</span>
+    </section>
+    <section class="details-wrapper" *ngIf="details">
+        <section class="pokemon-images details-board-item">
+            <div><img alt="poke" [src]="details.imageFirst"></div>
+            <div><img alt="poke" [src]="details.imageSecond"></div>
+        </section>
+        <section class="pokemon-specs details-board-item">
+            <mat-list role="list">
+                <mat-list-item role="listitem">Weight:&nbsp; <span>{{details?.weight }} g.</span>
+                </mat-list-item>
+                <mat-list-item role="listitem">Height:&nbsp; <span>{{details?.height }} cm</span>
+                </mat-list-item>
+                <mat-list-item role="listitem">Base Experience:&nbsp; <span>{{details?.base_experience }} xp</span>
+                </mat-list-item>
+                <mat-list-item role="listitem">Order:&nbsp; <span>{{details?.order}}</span>
+                </mat-list-item>
+            </mat-list>
+        </section>
+    
+        <section class="pokemon-stats details-board-item">
+            <mat-chip-list class="example-chip" cdkDropList cdkDropListOrientation="horizontal"
+                (cdkDropListDropped)="drop($event)">Stats: &nbsp;
+                <mat-chip color="primary" selected cdkDrag *ngFor="let item of details.stats">
+                    {{item?.stat?.name |uppercase }}<sup><small>({{item.base_stat}})</small></sup>
+                </mat-chip>
+            </mat-chip-list>
+        </section>
+    
+        <section class="pokemon-types details-board-item">
+            <mat-chip-list class="example-chip" cdkDropList cdkDropListOrientation="horizontal"
+                (cdkDropListDropped)="drop($event)">Types: &nbsp;
+                <mat-chip color="primary" selected cdkDrag *ngFor="let item of details.types">
+                    {{item?.type?.name | uppercase}}
+                </mat-chip>
+            </mat-chip-list>
+        </section>
+    </section>
+</section>
